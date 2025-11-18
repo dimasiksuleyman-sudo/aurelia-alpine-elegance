@@ -1,0 +1,1306 @@
+{
+  "project": {
+    "name": "The Aurelia Hotel Website",
+    "type": "React to WordPress Conversion",
+    "version": "1.0.0",
+    "description": "Luxury hotel website conversion from React/Lovable to WordPress",
+    "currentStack": {
+      "framework": "React 18.3.1",
+      "buildTool": "Vite 5.4.19",
+      "styling": "Tailwind CSS 3.4.17",
+      "uiLibrary": "shadcn/ui (Radix UI)",
+      "language": "TypeScript 5.8.3",
+      "routing": "React Router DOM 6.30.1",
+      "stateManagement": "React Hooks (useState)",
+      "formHandling": "React Hook Form 7.61.1",
+      "validation": "Zod 3.25.76",
+      "dateHandling": "date-fns 3.6.0",
+      "icons": "Lucide React 0.462.0",
+      "notifications": "Sonner 1.7.4"
+    },
+    "targetStack": {
+      "cms": "WordPress 6.4+",
+      "theme": "Custom Block Theme",
+      "editor": "Gutenberg Block Editor",
+      "plugins": [
+        "WP Hotel Booking",
+        "Advanced Custom Fields (ACF) Pro",
+        "Contact Form 7 or WPForms",
+        "Mailchimp for WordPress"
+      ]
+    }
+  },
+  "assets": {
+    "images": [
+      {
+        "file": "hotel-exterior.jpg",
+        "usage": "Hero section background",
+        "wpLocation": "/wp-content/uploads/2024/hotel/",
+        "optimization": "WebP conversion recommended"
+      },
+      {
+        "file": "interior-lounge.jpg",
+        "usage": "Welcome section image",
+        "wpLocation": "/wp-content/uploads/2024/hotel/",
+        "optimization": "WebP conversion recommended"
+      },
+      {
+        "file": "alpine-suite.jpg",
+        "usage": "Room card image",
+        "wpLocation": "/wp-content/uploads/2024/rooms/",
+        "optimization": "WebP conversion recommended"
+      },
+      {
+        "file": "summit-penthouse.jpg",
+        "usage": "Room card image",
+        "wpLocation": "/wp-content/uploads/2024/rooms/",
+        "optimization": "WebP conversion recommended"
+      },
+      {
+        "file": "garden-retreat.jpg",
+        "usage": "Room card image",
+        "wpLocation": "/wp-content/uploads/2024/rooms/",
+        "optimization": "WebP conversion recommended"
+      },
+      {
+        "file": "testimonial-sarah.jpg",
+        "usage": "Testimonial avatar",
+        "wpLocation": "/wp-content/uploads/2024/testimonials/",
+        "optimization": "WebP conversion recommended"
+      },
+      {
+        "file": "testimonial-elena.jpg",
+        "usage": "Testimonial avatar",
+        "wpLocation": "/wp-content/uploads/2024/testimonials/",
+        "optimization": "WebP conversion recommended"
+      }
+    ],
+    "fonts": [
+      {
+        "name": "Cormorant Garamond",
+        "type": "Google Fonts",
+        "usage": "Headings (serif)",
+        "wpImplementation": "Enqueue via functions.php or use theme.json"
+      },
+      {
+        "name": "Inter",
+        "type": "Google Fonts",
+        "usage": "Body text (sans-serif)",
+        "wpImplementation": "Enqueue via functions.php or use theme.json"
+      }
+    ]
+  },
+  "colorPalette": {
+    "primary": {
+      "background": "hsl(0, 0%, 100%)",
+      "foreground": "hsl(220, 15%, 20%)",
+      "cream": "hsl(40, 25%, 95%)",
+      "softBeige": "hsl(35, 25%, 88%)",
+      "warmTaupe": "hsl(30, 15%, 60%)",
+      "deepCharcoal": "hsl(220, 15%, 20%)",
+      "gold": "hsl(45, 90%, 55%)",
+      "goldMuted": "hsl(45, 70%, 45%)"
+    },
+    "wpImplementation": {
+      "method": "CSS Custom Properties in style.css",
+      "themeJson": "Define in theme.json settings.color.palette",
+      "fallback": "Generate utility classes for backward compatibility"
+    }
+  },
+  "components": [
+    {
+      "id": "hero-section",
+      "name": "Hero Section",
+      "currentTech": {
+        "component": "section element in Index.tsx",
+        "location": "src/pages/Index.tsx:67-91",
+        "styling": [
+          "relative",
+          "h-screen",
+          "flex items-center justify-center",
+          "bg-cover bg-center",
+          "bg-gradient-to-b from-transparent to-deep-charcoal/40",
+          "text-6xl md:text-7xl font-serif",
+          "animate-fade-in",
+          "animate-bounce"
+        ],
+        "dependencies": [
+          "hotel-exterior.jpg",
+          "BookingWidget component",
+          "lucide-react (ChevronDown icon)"
+        ],
+        "interactivity": "Scroll indicator with bounce animation"
+      },
+      "wpTarget": {
+        "structure": "Custom Gutenberg Block or Block Pattern",
+        "blockName": "aurelia/hero-section",
+        "implementation": "FSE Block Pattern with Cover Block",
+        "files": [
+          "patterns/hero-section.php",
+          "blocks/hero-section/block.json",
+          "blocks/hero-section/render.php"
+        ],
+        "acfFields": [
+          {
+            "name": "hero_title",
+            "type": "text",
+            "default": "The Aurelia"
+          },
+          {
+            "name": "hero_subtitle",
+            "type": "text",
+            "default": "Where Mountains Meet Luxury"
+          },
+          {
+            "name": "hero_background_image",
+            "type": "image",
+            "return": "url"
+          }
+        ],
+        "coreBlocks": [
+          "core/cover",
+          "core/heading",
+          "core/paragraph"
+        ]
+      },
+      "conversionNotes": [
+        "Use core/cover block for background image",
+        "Implement gradient overlay using cover block settings",
+        "Add custom CSS class for animations",
+        "Integrate BookingWidget as separate block",
+        "ChevronDown icon can be added as custom HTML or icon block"
+      ],
+      "priority": "HIGH",
+      "complexity": "MEDIUM"
+    },
+    {
+      "id": "booking-widget",
+      "name": "BookingWidget",
+      "currentTech": {
+        "component": "BookingWidget.tsx",
+        "location": "src/components/BookingWidget.tsx",
+        "styling": [
+          "fixed/absolute positioning (sticky behavior)",
+          "bg-background/95 backdrop-blur-lg",
+          "border border-border rounded-lg",
+          "shadow-xl",
+          "flex flex-col md:flex-row gap-4"
+        ],
+        "features": [
+          "Date picker (check-in/check-out)",
+          "Guest selector dropdown",
+          "Form validation",
+          "Toast notifications",
+          "Sticky scroll behavior"
+        ],
+        "dependencies": [
+          "shadcn/ui Calendar",
+          "shadcn/ui Popover",
+          "shadcn/ui Button",
+          "shadcn/ui Select",
+          "date-fns (format)",
+          "sonner (toast)"
+        ],
+        "state": [
+          "checkIn: Date",
+          "checkOut: Date",
+          "guests: string",
+          "isSticky: boolean"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Custom Gutenberg Block + WP Hotel Booking Integration",
+        "blockName": "aurelia/booking-widget",
+        "implementation": "Custom React Block or PHP/JS Hybrid",
+        "files": [
+          "blocks/booking-widget/block.json",
+          "blocks/booking-widget/edit.js",
+          "blocks/booking-widget/save.js",
+          "blocks/booking-widget/style.scss"
+        ],
+        "pluginIntegration": {
+          "plugin": "WP Hotel Booking",
+          "method": "Use shortcode or REST API",
+          "shortcode": "[hb_booking_form]",
+          "customization": "Override template files in theme"
+        },
+        "alternativeApproach": {
+          "method": "Custom Form with AJAX",
+          "handler": "wp-admin/admin-ajax.php",
+          "actions": [
+            "wp_ajax_check_availability",
+            "wp_ajax_nopriv_check_availability"
+          ],
+          "dependencies": [
+            "jQuery UI Datepicker or Flatpickr",
+            "WP Nonce for security"
+          ]
+        },
+        "stickyBehavior": {
+          "method": "JavaScript scroll event listener",
+          "cssClass": "booking-widget--sticky",
+          "implementation": "Vanilla JS or WordPress jQuery"
+        }
+      },
+      "conversionNotes": [
+        "Critical component - requires careful planning",
+        "Consider WP Hotel Booking plugin vs custom solution",
+        "Date picker: Use Flatpickr.js or jQuery UI Datepicker",
+        "Maintain sticky scroll behavior with custom JS",
+        "Toast notifications can use custom JS or plugin",
+        "Form submission should integrate with booking system",
+        "Add nonce validation for security"
+      ],
+      "priority": "CRITICAL",
+      "complexity": "HIGH"
+    },
+    {
+      "id": "welcome-section",
+      "name": "Welcome/About Section",
+      "currentTech": {
+        "component": "section element in Index.tsx",
+        "location": "src/pages/Index.tsx:94-137",
+        "styling": [
+          "min-h-screen bg-background py-20",
+          "grid md:grid-cols-2 gap-12",
+          "text-5xl md:text-6xl font-serif",
+          "text-gold tracking-widest uppercase",
+          "hover:scale-[1.02] transition-transform"
+        ],
+        "content": [
+          "Section title and description",
+          "Three paragraphs of body text",
+          "Call-to-action link",
+          "Featured image with hover effect"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Block Pattern with Core Blocks",
+        "blockName": "aurelia/welcome-section",
+        "implementation": "FSE Block Pattern",
+        "files": [
+          "patterns/welcome-section.php"
+        ],
+        "coreBlocks": [
+          "core/group",
+          "core/columns",
+          "core/column",
+          "core/heading",
+          "core/paragraph",
+          "core/image"
+        ],
+        "acfFields": [
+          {
+            "name": "welcome_eyebrow",
+            "type": "text",
+            "default": "Welcome to The Aurelia"
+          },
+          {
+            "name": "welcome_heading",
+            "type": "text",
+            "default": "Experience Alpine Elegance"
+          },
+          {
+            "name": "welcome_content",
+            "type": "wysiwyg",
+            "default": "Multi-paragraph content"
+          },
+          {
+            "name": "welcome_image",
+            "type": "image",
+            "return": "array"
+          }
+        ]
+      },
+      "conversionNotes": [
+        "Use core/columns for two-column layout",
+        "Image hover effect requires custom CSS class",
+        "Text color (gold) should use theme color palette",
+        "CTA link can be core/button or core/paragraph with link"
+      ],
+      "priority": "HIGH",
+      "complexity": "LOW"
+    },
+    {
+      "id": "room-card",
+      "name": "RoomCard Component",
+      "currentTech": {
+        "component": "RoomCard.tsx",
+        "location": "src/components/RoomCard.tsx",
+        "styling": [
+          "group bg-card rounded-lg shadow-lg",
+          "hover:shadow-2xl transition-all",
+          "group-hover:scale-110",
+          "text-3xl font-serif",
+          "flex items-start gap-2",
+          "border-t border-border"
+        ],
+        "props": {
+          "image": "string (room image URL)",
+          "badge": "string (optional, e.g., 'MOST POPULAR')",
+          "title": "string (room name)",
+          "description": "string (room specs)",
+          "features": "string[] (amenities list)",
+          "price": "string (price per night)",
+          "onViewDetails": "function (click handler)"
+        },
+        "features": [
+          "Image with hover zoom effect",
+          "Optional badge overlay",
+          "Feature list with checkmark icons",
+          "Price display",
+          "View Details button"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Custom Post Type + Custom Block",
+        "postType": {
+          "name": "hotel_room",
+          "label": "Rooms",
+          "supports": ["title", "editor", "thumbnail", "excerpt"],
+          "taxonomies": ["room_category"],
+          "hasArchive": true
+        },
+        "blockName": "aurelia/room-card",
+        "implementation": "Dynamic Block with WP_Query",
+        "files": [
+          "inc/post-types/room.php",
+          "blocks/room-card/block.json",
+          "blocks/room-card/render.php",
+          "blocks/room-card/style.scss"
+        ],
+        "acfFields": [
+          {
+            "name": "room_badge",
+            "type": "text",
+            "label": "Badge Text"
+          },
+          {
+            "name": "room_size",
+            "type": "text",
+            "label": "Room Size (sqm)"
+          },
+          {
+            "name": "room_bed_type",
+            "type": "text",
+            "label": "Bed Type"
+          },
+          {
+            "name": "room_view",
+            "type": "text",
+            "label": "View Type"
+          },
+          {
+            "name": "room_features",
+            "type": "repeater",
+            "label": "Features",
+            "subFields": [
+              {
+                "name": "feature_text",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "room_price",
+            "type": "text",
+            "label": "Price (e.g., From €450/night)"
+          },
+          {
+            "name": "room_full_description",
+            "type": "wysiwyg",
+            "label": "Full Description"
+          }
+        ],
+        "templateStructure": {
+          "query": "Get rooms from hotel_room CPT",
+          "loop": "foreach room, render card",
+          "iconLibrary": "Font Awesome or Dashicons for checkmarks"
+        }
+      },
+      "conversionNotes": [
+        "Create Custom Post Type for rooms",
+        "Use ACF for room metadata",
+        "Featured image becomes room thumbnail",
+        "Implement card grid using core/query block or custom loop",
+        "Badge can be conditional based on ACF field",
+        "Checkmark icons: use Font Awesome or custom SVG",
+        "View Details button triggers modal or links to single room page",
+        "Hover effects require custom CSS"
+      ],
+      "priority": "CRITICAL",
+      "complexity": "MEDIUM"
+    },
+    {
+      "id": "rooms-showcase",
+      "name": "Rooms Showcase Section",
+      "currentTech": {
+        "component": "section element in Index.tsx",
+        "location": "src/pages/Index.tsx:140-157",
+        "styling": [
+          "py-20 px-4 bg-cream",
+          "grid md:grid-cols-3 gap-8",
+          "text-5xl md:text-6xl font-serif"
+        ],
+        "data": "Array of 3 room objects in component state",
+        "features": [
+          "Section heading and subtitle",
+          "Grid of 3 RoomCard components",
+          "Dynamic data mapping"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Block Pattern + Query Loop",
+        "implementation": "FSE Block Pattern with core/query",
+        "files": [
+          "patterns/rooms-showcase.php"
+        ],
+        "coreBlocks": [
+          "core/group",
+          "core/heading",
+          "core/paragraph",
+          "core/query",
+          "core/post-template"
+        ],
+        "queryParameters": {
+          "postType": "hotel_room",
+          "postsPerPage": 3,
+          "orderBy": "menu_order",
+          "order": "ASC"
+        }
+      },
+      "conversionNotes": [
+        "Use core/query block to display rooms",
+        "Limit to 3 rooms using query settings",
+        "Each room card uses aurelia/room-card block",
+        "Section background color from theme palette",
+        "Grid layout can be core/columns or custom CSS grid"
+      ],
+      "priority": "HIGH",
+      "complexity": "MEDIUM"
+    },
+    {
+      "id": "room-detail-modal",
+      "name": "RoomDetailModal Component",
+      "currentTech": {
+        "component": "RoomDetailModal.tsx",
+        "location": "src/components/RoomDetailModal.tsx",
+        "styling": [
+          "max-w-3xl max-h-[90vh] overflow-y-auto",
+          "text-3xl font-serif",
+          "grid grid-cols-2 gap-3",
+          "border-t border-border"
+        ],
+        "dependencies": [
+          "shadcn/ui Dialog",
+          "lucide-react (Check icon)"
+        ],
+        "props": {
+          "isOpen": "boolean",
+          "onClose": "function",
+          "room": "object (room data)"
+        },
+        "features": [
+          "Modal dialog overlay",
+          "Room image display",
+          "Full description",
+          "Amenities grid",
+          "Price and Book Now button"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Single Room Template + Modal/Lightbox",
+        "implementation": "Single Post Template OR Modal Plugin",
+        "approach1": {
+          "name": "Single Post Template",
+          "files": [
+            "templates/single-hotel_room.php",
+            "template-parts/content-room.php"
+          ],
+          "method": "Link to single room page instead of modal",
+          "benefits": ["SEO-friendly", "Shareable URLs", "Better UX on mobile"]
+        },
+        "approach2": {
+          "name": "Modal/Lightbox",
+          "method": "JavaScript modal with AJAX content",
+          "plugins": ["FancyBox", "Magnific Popup", "Custom modal"],
+          "implementation": [
+            "Add data-room-id attribute to View Details button",
+            "Load room content via AJAX",
+            "Display in modal overlay"
+          ],
+          "files": [
+            "js/room-modal.js",
+            "inc/ajax-handlers.php"
+          ]
+        }
+      },
+      "conversionNotes": [
+        "Recommendation: Use single room template for better SEO",
+        "Alternative: Implement modal with JavaScript library",
+        "Modal approach requires AJAX handler for dynamic content",
+        "Use same ACF fields as RoomCard",
+        "Book Now button should integrate with booking system",
+        "Consider mobile UX - full page may be better than modal"
+      ],
+      "priority": "MEDIUM",
+      "complexity": "MEDIUM"
+    },
+    {
+      "id": "experience-box",
+      "name": "ExperienceBox Component",
+      "currentTech": {
+        "component": "ExperienceBox.tsx",
+        "location": "src/components/ExperienceBox.tsx",
+        "styling": [
+          "text-center p-6",
+          "group hover:scale-105 transition-transform",
+          "w-16 h-16 rounded-full bg-gold/10",
+          "group-hover:bg-gold/20",
+          "text-xl font-serif"
+        ],
+        "props": {
+          "icon": "LucideIcon component",
+          "title": "string",
+          "description": "string"
+        },
+        "features": [
+          "Icon in circular background",
+          "Hover scale animation",
+          "Title and description"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Custom Block or ACF Flexible Content",
+        "blockName": "aurelia/experience-box",
+        "implementation": "Custom Block with Icon Picker",
+        "files": [
+          "blocks/experience-box/block.json",
+          "blocks/experience-box/edit.js",
+          "blocks/experience-box/save.js"
+        ],
+        "blockAttributes": {
+          "icon": {
+            "type": "string",
+            "default": "sparkles"
+          },
+          "title": {
+            "type": "string",
+            "default": ""
+          },
+          "description": {
+            "type": "string",
+            "default": ""
+          }
+        },
+        "iconLibrary": {
+          "options": [
+            "Font Awesome",
+            "Dashicons",
+            "Custom SVG upload",
+            "Icon picker component"
+          ],
+          "recommendation": "Font Awesome for variety"
+        }
+      },
+      "conversionNotes": [
+        "Create custom block with icon picker",
+        "Use Font Awesome or Dashicons for icons",
+        "Map Lucide icons to Font Awesome equivalents",
+        "Circular background and hover effect require custom CSS",
+        "Can be used as InnerBlocks for flexible placement"
+      ],
+      "priority": "MEDIUM",
+      "complexity": "LOW"
+    },
+    {
+      "id": "experiences-section",
+      "name": "Curated Experiences Section",
+      "currentTech": {
+        "component": "section element in Index.tsx",
+        "location": "src/pages/Index.tsx:160-194",
+        "styling": [
+          "py-20 px-4 bg-deep-charcoal",
+          "grid md:grid-cols-4 gap-8",
+          "text-5xl md:text-6xl font-serif text-background"
+        ],
+        "content": [
+          "Section heading and subtitle",
+          "4 ExperienceBox components",
+          "Icons: Sparkles, UtensilsCrossed, Mountain, Wine"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Block Pattern with Custom Blocks",
+        "implementation": "FSE Block Pattern",
+        "files": [
+          "patterns/experiences-section.php"
+        ],
+        "coreBlocks": [
+          "core/group",
+          "core/heading",
+          "core/paragraph",
+          "core/columns"
+        ],
+        "customBlocks": [
+          "aurelia/experience-box (4 instances)"
+        ]
+      },
+      "conversionNotes": [
+        "Use core/columns with 4 columns",
+        "Each column contains aurelia/experience-box block",
+        "Dark background (deep-charcoal) from theme palette",
+        "Light text requires text color override",
+        "Icons map: Sparkles→spa, UtensilsCrossed→utensils, Mountain→mountain, Wine→wine-glass"
+      ],
+      "priority": "MEDIUM",
+      "complexity": "LOW"
+    },
+    {
+      "id": "testimonial-card",
+      "name": "TestimonialCard Component",
+      "currentTech": {
+        "component": "TestimonialCard.tsx",
+        "location": "src/components/TestimonialCard.tsx",
+        "styling": [
+          "bg-background p-8 rounded-lg shadow-lg",
+          "hover:shadow-xl transition-shadow",
+          "w-5 h-5 fill-gold text-gold",
+          "w-14 h-14 rounded-full object-cover"
+        ],
+        "props": {
+          "quote": "string",
+          "name": "string",
+          "location": "string",
+          "image": "string"
+        },
+        "features": [
+          "5-star rating display",
+          "Quote text (italic)",
+          "Avatar image",
+          "Name and location"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Custom Post Type + Custom Block",
+        "postType": {
+          "name": "testimonial",
+          "label": "Testimonials",
+          "supports": ["title", "editor", "thumbnail"],
+          "hasArchive": false
+        },
+        "blockName": "aurelia/testimonial-card",
+        "implementation": "Dynamic Block with WP_Query",
+        "files": [
+          "inc/post-types/testimonial.php",
+          "blocks/testimonial-card/block.json",
+          "blocks/testimonial-card/render.php"
+        ],
+        "acfFields": [
+          {
+            "name": "testimonial_quote",
+            "type": "textarea",
+            "label": "Quote"
+          },
+          {
+            "name": "testimonial_author",
+            "type": "text",
+            "label": "Author Name"
+          },
+          {
+            "name": "testimonial_location",
+            "type": "text",
+            "label": "Location"
+          },
+          {
+            "name": "testimonial_rating",
+            "type": "number",
+            "label": "Rating",
+            "default": 5,
+            "min": 1,
+            "max": 5
+          }
+        ]
+      },
+      "conversionNotes": [
+        "Create Custom Post Type for testimonials",
+        "Featured image becomes avatar",
+        "Star rating can be static (5 stars) or dynamic ACF field",
+        "Use Font Awesome stars with fill/empty states",
+        "Quote text uses blockquote styling",
+        "Avatar rounded with CSS border-radius: 50%"
+      ],
+      "priority": "MEDIUM",
+      "complexity": "LOW"
+    },
+    {
+      "id": "testimonials-section",
+      "name": "Guest Stories Section",
+      "currentTech": {
+        "component": "section element in Index.tsx",
+        "location": "src/pages/Index.tsx:197-218",
+        "styling": [
+          "py-20 px-4 bg-cream",
+          "grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+        ],
+        "content": [
+          "Section heading",
+          "2 TestimonialCard components"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Block Pattern with Query Loop",
+        "implementation": "FSE Block Pattern",
+        "files": [
+          "patterns/testimonials-section.php"
+        ],
+        "coreBlocks": [
+          "core/group",
+          "core/heading",
+          "core/query",
+          "core/post-template"
+        ],
+        "queryParameters": {
+          "postType": "testimonial",
+          "postsPerPage": 2,
+          "orderBy": "date",
+          "order": "DESC"
+        }
+      },
+      "conversionNotes": [
+        "Use core/query to display testimonials",
+        "Limit to 2 testimonials",
+        "Two-column grid layout",
+        "Max width constraint (max-w-5xl)",
+        "Centered with margin auto"
+      ],
+      "priority": "MEDIUM",
+      "complexity": "LOW"
+    },
+    {
+      "id": "newsletter",
+      "name": "Newsletter Component",
+      "currentTech": {
+        "component": "Newsletter.tsx",
+        "location": "src/components/Newsletter.tsx",
+        "styling": [
+          "flex flex-col sm:flex-row gap-3",
+          "bg-background/10 border-background/20",
+          "placeholder:text-background/50"
+        ],
+        "features": [
+          "Email input with validation",
+          "Subscribe button",
+          "Form submission handler",
+          "Toast notification on success/error",
+          "Regex email validation"
+        ],
+        "dependencies": [
+          "shadcn/ui Input",
+          "shadcn/ui Button",
+          "sonner (toast)"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Form Plugin Integration or Custom Block",
+        "approach1": {
+          "name": "Mailchimp for WordPress",
+          "plugin": "MC4WP: Mailchimp for WordPress",
+          "implementation": "Use shortcode in block",
+          "shortcode": "[mc4wp_form id='123']",
+          "customization": "Style form to match design"
+        },
+        "approach2": {
+          "name": "Contact Form 7",
+          "plugin": "Contact Form 7",
+          "implementation": "Create newsletter form",
+          "shortcode": "[contact-form-7 id='123']",
+          "mailIntegration": "Use CF7 Mailchimp extension"
+        },
+        "approach3": {
+          "name": "Custom Block",
+          "blockName": "aurelia/newsletter",
+          "implementation": "Custom form with AJAX handler",
+          "files": [
+            "blocks/newsletter/block.json",
+            "blocks/newsletter/edit.js",
+            "blocks/newsletter/save.js",
+            "inc/newsletter-handler.php"
+          ],
+          "ajaxAction": "aurelia_newsletter_subscribe",
+          "validation": "Server-side validation with sanitize_email()"
+        }
+      },
+      "conversionNotes": [
+        "Recommendation: Use Mailchimp for WordPress plugin",
+        "Alternative: Custom block with AJAX handler",
+        "Email validation on both client and server side",
+        "Toast notifications can be replaced with WordPress notice/success message",
+        "Form styling requires custom CSS to match design",
+        "Add nonce for security",
+        "Store subscriptions in WP database or external service"
+      ],
+      "priority": "MEDIUM",
+      "complexity": "MEDIUM"
+    },
+    {
+      "id": "location-section",
+      "name": "Location Section",
+      "currentTech": {
+        "component": "section element in Index.tsx",
+        "location": "src/pages/Index.tsx:221-272",
+        "styling": [
+          "py-20 px-4 bg-background",
+          "grid md:grid-cols-2 gap-12",
+          "h-[500px] bg-soft-beige rounded-lg"
+        ],
+        "content": [
+          "Map placeholder",
+          "Heading",
+          "Address (with MapPin icon)",
+          "Email (with Mail icon)",
+          "Phone (with Phone icon)",
+          "Travel information"
+        ],
+        "icons": [
+          "MapPin",
+          "Mail",
+          "Phone"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Block Pattern with Core Blocks",
+        "implementation": "FSE Block Pattern",
+        "files": [
+          "patterns/location-section.php"
+        ],
+        "coreBlocks": [
+          "core/group",
+          "core/columns",
+          "core/column",
+          "core/heading",
+          "core/paragraph",
+          "core/embed (for Google Maps)"
+        ],
+        "mapIntegration": {
+          "option1": "Google Maps Embed",
+          "option2": "ACF Google Map field",
+          "option3": "Map plugin (WP Google Maps, MapPress)",
+          "recommendation": "ACF Google Map field for flexibility"
+        },
+        "acfFields": [
+          {
+            "name": "location_map",
+            "type": "google_map",
+            "label": "Map Location"
+          },
+          {
+            "name": "location_address",
+            "type": "textarea",
+            "label": "Address"
+          },
+          {
+            "name": "location_email",
+            "type": "email",
+            "label": "Email"
+          },
+          {
+            "name": "location_phone",
+            "type": "text",
+            "label": "Phone"
+          },
+          {
+            "name": "location_travel_info",
+            "type": "wysiwyg",
+            "label": "Travel Information"
+          }
+        ]
+      },
+      "conversionNotes": [
+        "Replace map placeholder with Google Maps embed or ACF map",
+        "Icons can be Font Awesome or Dashicons",
+        "Contact info should be editable via ACF or Customizer",
+        "Two-column layout with core/columns",
+        "Consider schema markup for address (LocalBusiness)",
+        "Travel info can be simple paragraph or list"
+      ],
+      "priority": "MEDIUM",
+      "complexity": "LOW"
+    },
+    {
+      "id": "footer",
+      "name": "Footer Section",
+      "currentTech": {
+        "component": "footer element in Index.tsx",
+        "location": "src/pages/Index.tsx:275-310",
+        "styling": [
+          "bg-deep-charcoal text-cream py-16",
+          "grid md:grid-cols-3 gap-12",
+          "border-t border-background/20"
+        ],
+        "content": [
+          "Brand column (title, description, social icons placeholder)",
+          "Quick Links column (navigation menu)",
+          "Newsletter column (Newsletter component)",
+          "Copyright notice"
+        ]
+      },
+      "wpTarget": {
+        "structure": "Footer Template Part",
+        "implementation": "FSE Footer Template Part",
+        "files": [
+          "parts/footer.php",
+          "parts/footer.html"
+        ],
+        "coreBlocks": [
+          "core/group",
+          "core/columns",
+          "core/column",
+          "core/heading",
+          "core/paragraph",
+          "core/navigation",
+          "core/social-links"
+        ],
+        "navigationMenu": {
+          "name": "Footer Menu",
+          "location": "footer-menu",
+          "items": ["Rooms", "Dining", "Spa", "Contact", "Careers"]
+        },
+        "widgetAreas": {
+          "alternative": "Register widget areas for footer columns",
+          "areas": [
+            "footer-1",
+            "footer-2",
+            "footer-3"
+          ]
+        }
+      },
+      "conversionNotes": [
+        "Create footer template part in FSE",
+        "Use core/columns for three-column layout",
+        "Register footer navigation menu",
+        "Social links block for social icons",
+        "Newsletter component (see newsletter conversion)",
+        "Copyright can be dynamic with [current_year] shortcode",
+        "Dark background with light text from theme colors"
+      ],
+      "priority": "HIGH",
+      "complexity": "LOW"
+    }
+  ],
+  "tailwindToCSS": {
+    "strategy": "Hybrid Approach",
+    "methods": [
+      {
+        "name": "Custom CSS Classes",
+        "description": "Convert Tailwind utilities to custom CSS classes",
+        "files": [
+          "assets/css/components.css",
+          "assets/css/utilities.css"
+        ],
+        "example": {
+          "tailwind": "bg-gold text-deep-charcoal px-4 py-2 rounded-full",
+          "css": ".badge { background-color: var(--gold); color: var(--deep-charcoal); padding: 0.5rem 1rem; border-radius: 9999px; }"
+        }
+      },
+      {
+        "name": "Inline Styles (Minimal Use)",
+        "description": "Use for unique, one-off styling",
+        "usage": "Only when necessary for dynamic values"
+      },
+      {
+        "name": "Block Custom Classes",
+        "description": "Add custom classes to Gutenberg blocks",
+        "implementation": "Use block.json supports.customClassName or additionalClassName"
+      },
+      {
+        "name": "CSS Custom Properties",
+        "description": "Define colors, spacing, and other design tokens",
+        "file": "style.css",
+        "example": "--gold: hsl(45, 90%, 55%);"
+      }
+    ],
+    "commonPatterns": {
+      "spacing": {
+        "tailwind": ["py-20", "px-4", "gap-8", "mb-4"],
+        "css": "Use rem values (e.g., padding: 5rem 1rem;)"
+      },
+      "typography": {
+        "tailwind": ["text-5xl", "font-serif", "tracking-wide"],
+        "css": ".heading-xl { font-size: 3rem; font-family: var(--font-serif); letter-spacing: 0.025em; }"
+      },
+      "layout": {
+        "tailwind": ["grid", "md:grid-cols-3", "gap-12"],
+        "css": ".grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }"
+      },
+      "effects": {
+        "tailwind": ["shadow-xl", "hover:shadow-2xl", "transition-all"],
+        "css": ".card { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }\n.card:hover { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }"
+      },
+      "colors": {
+        "tailwind": ["bg-gold", "text-cream", "border-border"],
+        "css": "Use CSS custom properties: background-color: var(--gold);"
+      }
+    }
+  },
+  "dependencies": {
+    "plugins": {
+      "required": [
+        {
+          "name": "Advanced Custom Fields (ACF) Pro",
+          "purpose": "Custom fields for rooms, testimonials, location data",
+          "license": "Required",
+          "alternative": "Pods or Metabox"
+        }
+      ],
+      "recommended": [
+        {
+          "name": "WP Hotel Booking",
+          "purpose": "Booking system integration",
+          "alternative": "Custom booking solution or WooCommerce Bookings"
+        },
+        {
+          "name": "Mailchimp for WordPress",
+          "purpose": "Newsletter subscription",
+          "alternative": "Contact Form 7 + Mailchimp extension"
+        },
+        {
+          "name": "WP Rocket or W3 Total Cache",
+          "purpose": "Performance optimization",
+          "alternative": "Native WordPress caching"
+        },
+        {
+          "name": "Yoast SEO",
+          "purpose": "SEO optimization",
+          "alternative": "Rank Math or The SEO Framework"
+        }
+      ],
+      "optional": [
+        {
+          "name": "ACF Extended",
+          "purpose": "Enhanced ACF functionality"
+        },
+        {
+          "name": "Custom Post Type UI",
+          "purpose": "Easy CPT management (if not coding)",
+          "alternative": "Code CPTs in functions.php"
+        },
+        {
+          "name": "WP Google Maps",
+          "purpose": "Interactive map",
+          "alternative": "ACF Google Map field"
+        }
+      ]
+    },
+    "jsLibraries": {
+      "required": [
+        {
+          "name": "Flatpickr or jQuery UI Datepicker",
+          "purpose": "Date selection in booking widget",
+          "cdn": "Available via CDN or npm"
+        }
+      ],
+      "optional": [
+        {
+          "name": "AOS (Animate On Scroll)",
+          "purpose": "Scroll animations",
+          "alternative": "Custom intersection observer"
+        },
+        {
+          "name": "Swiper or Slick",
+          "purpose": "Image carousels (if needed)",
+          "alternative": "Core gallery block"
+        }
+      ]
+    }
+  },
+  "conversionPhases": {
+    "phase1": {
+      "name": "Foundation Setup",
+      "duration": "1-2 days",
+      "tasks": [
+        "Create WordPress theme structure (FSE block theme)",
+        "Set up theme.json with colors, typography, spacing",
+        "Convert CSS custom properties from index.css",
+        "Enqueue fonts (Cormorant Garamond, Inter)",
+        "Create base style.css with design tokens",
+        "Set up development environment"
+      ]
+    },
+    "phase2": {
+      "name": "Custom Post Types & Taxonomies",
+      "duration": "1 day",
+      "tasks": [
+        "Create hotel_room CPT with ACF fields",
+        "Create testimonial CPT with ACF fields",
+        "Add sample room data",
+        "Add sample testimonial data",
+        "Create room_category taxonomy (if needed)",
+        "Configure post type archives and single templates"
+      ]
+    },
+    "phase3": {
+      "name": "Core Sections (Static Content)",
+      "duration": "2-3 days",
+      "tasks": [
+        "Convert Hero Section to block pattern",
+        "Convert Welcome Section to block pattern",
+        "Convert Experiences Section with custom blocks",
+        "Convert Location Section with map integration",
+        "Create Footer template part",
+        "Test all sections for responsiveness"
+      ]
+    },
+    "phase4": {
+      "name": "Dynamic Components",
+      "duration": "3-4 days",
+      "tasks": [
+        "Create aurelia/room-card block with WP_Query",
+        "Create aurelia/testimonial-card block",
+        "Implement Rooms Showcase with query loop",
+        "Implement Testimonials Section with query loop",
+        "Create single room template or modal",
+        "Test dynamic data rendering"
+      ]
+    },
+    "phase5": {
+      "name": "Interactive Features",
+      "duration": "3-4 days",
+      "tasks": [
+        "Implement BookingWidget (critical path)",
+        "Integrate WP Hotel Booking plugin OR build custom solution",
+        "Add date picker functionality",
+        "Create booking form handler and validation",
+        "Implement Newsletter subscription",
+        "Add form error handling and success messages",
+        "Test all form submissions"
+      ]
+    },
+    "phase6": {
+      "name": "Styling & Polish",
+      "duration": "2-3 days",
+      "tasks": [
+        "Convert all Tailwind classes to CSS",
+        "Implement hover effects and transitions",
+        "Add animations (fade-in, bounce, scale)",
+        "Ensure responsive design across all breakpoints",
+        "Cross-browser testing",
+        "Accessibility audit (WCAG 2.1 AA)"
+      ]
+    },
+    "phase7": {
+      "name": "Content Migration & Testing",
+      "duration": "2-3 days",
+      "tasks": [
+        "Migrate all images to WordPress media library",
+        "Optimize images (WebP conversion)",
+        "Add all room data via ACF",
+        "Add all testimonial data",
+        "Configure navigation menus",
+        "Full site testing (functionality, forms, links)",
+        "Mobile testing",
+        "Performance optimization"
+      ]
+    },
+    "phase8": {
+      "name": "SEO & Launch Prep",
+      "duration": "1-2 days",
+      "tasks": [
+        "Install and configure SEO plugin",
+        "Add meta descriptions and titles",
+        "Implement schema markup (Hotel, LocalBusiness)",
+        "Create XML sitemap",
+        "Set up analytics (Google Analytics)",
+        "Final quality assurance",
+        "Backup and staging deployment"
+      ]
+    }
+  },
+  "estimatedEffort": {
+    "totalDuration": "15-22 days",
+    "breakdown": {
+      "development": "12-17 days",
+      "testing": "2-3 days",
+      "contentMigration": "1-2 days"
+    },
+    "skillsRequired": [
+      "WordPress theme development (FSE/Block themes)",
+      "PHP",
+      "JavaScript/jQuery",
+      "CSS (Tailwind conversion experience helpful)",
+      "ACF Pro",
+      "Gutenberg block development",
+      "WP REST API (for booking widget)",
+      "Responsive design"
+    ]
+  },
+  "riskAssessment": {
+    "high": [
+      {
+        "risk": "Booking widget complexity",
+        "mitigation": "Evaluate WP Hotel Booking plugin early; consider custom solution if needed",
+        "impact": "Could add 2-3 days if custom build required"
+      },
+      {
+        "risk": "Date picker compatibility",
+        "mitigation": "Test date picker library early in development",
+        "impact": "Minor - multiple libraries available as fallback"
+      }
+    ],
+    "medium": [
+      {
+        "risk": "Modal vs. single page decision for room details",
+        "mitigation": "Decide early based on SEO and UX priorities",
+        "impact": "Different implementation approaches"
+      },
+      {
+        "risk": "Animation performance on lower-end devices",
+        "mitigation": "Use CSS transforms, test on various devices, add reduced-motion media query",
+        "impact": "May need to simplify some animations"
+      }
+    ],
+    "low": [
+      {
+        "risk": "Font loading performance",
+        "mitigation": "Use font-display: swap, preload critical fonts",
+        "impact": "Minimal with proper optimization"
+      }
+    ]
+  },
+  "successCriteria": {
+    "functionality": [
+      "All sections render correctly on desktop and mobile",
+      "Booking widget accepts input and validates correctly",
+      "Room and testimonial data displays dynamically from CPTs",
+      "Newsletter subscription works and stores data",
+      "All forms include proper validation and security (nonces)"
+    ],
+    "design": [
+      "Visual fidelity matches React version",
+      "Color palette applied consistently",
+      "Typography hierarchy maintained",
+      "Hover effects and transitions work smoothly",
+      "Responsive breakpoints function correctly"
+    ],
+    "performance": [
+      "PageSpeed Insights score: 85+ (mobile), 90+ (desktop)",
+      "First Contentful Paint < 2s",
+      "Total page size < 2MB (with images optimized)",
+      "No layout shift issues (good CLS score)"
+    ],
+    "seo": [
+      "All pages have unique meta titles and descriptions",
+      "Schema markup implemented for Hotel and LocalBusiness",
+      "Images have alt text",
+      "Semantic HTML structure",
+      "Valid HTML/CSS (W3C validation)"
+    ],
+    "accessibility": [
+      "WCAG 2.1 AA compliance",
+      "Keyboard navigation works throughout",
+      "Sufficient color contrast",
+      "Form labels and ARIA attributes",
+      "Screen reader compatible"
+    ]
+  }
+}
