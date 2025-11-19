@@ -87,24 +87,53 @@ function aurelia_enqueue_assets() {
 		AURELIA_VERSION
 	);
 
-	// Enqueue custom CSS.
+	// Enqueue main theme CSS (converted from Tailwind).
+	wp_enqueue_style(
+		'aurelia-theme',
+		AURELIA_THEME_URI . '/assets/css/theme.css',
+		array( 'aurelia-style' ),
+		AURELIA_VERSION
+	);
+
+	// Enqueue custom component CSS.
 	wp_enqueue_style(
 		'aurelia-custom',
 		AURELIA_THEME_URI . '/assets/css/custom.css',
-		array( 'aurelia-style' ),
+		array( 'aurelia-theme' ),
 		AURELIA_VERSION
+	);
+
+	// Enqueue booking widget JavaScript.
+	wp_enqueue_script(
+		'aurelia-booking-widget',
+		AURELIA_THEME_URI . '/assets/js/booking-widget.js',
+		array(),
+		AURELIA_VERSION,
+		true
 	);
 
 	// Enqueue main JavaScript.
 	wp_enqueue_script(
 		'aurelia-main',
 		AURELIA_THEME_URI . '/assets/js/main.js',
-		array(),
+		array( 'aurelia-booking-widget' ),
 		AURELIA_VERSION,
 		true
 	);
 
-	// Localize script for AJAX.
+	// Localize script for AJAX and settings.
+	wp_localize_script(
+		'aurelia-booking-widget',
+		'aureliaBooking',
+		array(
+			'ajaxurl'   => admin_url( 'admin-ajax.php' ),
+			'nonce'     => wp_create_nonce( 'aurelia-booking-nonce' ),
+			'siteUrl'   => get_site_url(),
+			'themePath' => AURELIA_THEME_URI,
+		)
+	);
+
+	// Localize script for general AJAX.
 	wp_localize_script(
 		'aurelia-main',
 		'aureliaAjax',
@@ -215,12 +244,129 @@ function aurelia_disable_emojis() {
 add_action( 'init', 'aurelia_disable_emojis' );
 
 /**
- * Add preload for fonts
+ * Add preload for fonts and critical resources
  *
  * @since 1.0.0
  */
 function aurelia_preload_fonts() {
 	echo '<link rel="preconnect" href="https://fonts.googleapis.com">';
 	echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+
+	// Preload critical CSS
+	echo '<link rel="preload" href="' . esc_url( AURELIA_THEME_URI . '/assets/css/theme.css' ) . '" as="style">';
 }
 add_action( 'wp_head', 'aurelia_preload_fonts', 1 );
+
+/**
+ * Add async/defer to JavaScript files
+ *
+ * @param string $tag    The script tag.
+ * @param string $handle The script handle.
+ * @return string Modified script tag.
+ * @since 1.0.0
+ */
+function aurelia_defer_scripts( $tag, $handle ) {
+	// Scripts that should be deferred
+	$defer_scripts = array( 'aurelia-main' );
+
+	// Scripts that should be async
+	$async_scripts = array( 'aurelia-booking-widget' );
+
+	if ( in_array( $handle, $defer_scripts, true ) ) {
+		return str_replace( ' src', ' defer src', $tag );
+	}
+
+	if ( in_array( $handle, $async_scripts, true ) ) {
+		return str_replace( ' src', ' async src', $tag );
+	}
+
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'aurelia_defer_scripts', 10, 2 );
+
+/**
+ * Add resource hints for performance
+ *
+ * @param array  $urls          URLs to print for resource hints.
+ * @param string $relation_type The relation type.
+ * @return array Modified URLs.
+ * @since 1.0.0
+ */
+function aurelia_resource_hints( $urls, $relation_type ) {
+	if ( 'dns-prefetch' === $relation_type ) {
+		$urls[] = '//fonts.googleapis.com';
+		$urls[] = '//fonts.gstatic.com';
+	}
+
+	return $urls;
+}
+add_filter( 'wp_resource_hints', 'aurelia_resource_hints', 10, 2 );
+
+/**
+ * Enable lazy loading for images
+ *
+ * @param array $attr Image attributes.
+ * @return array Modified attributes.
+ * @since 1.0.0
+ */
+function aurelia_lazy_load_images( $attr ) {
+	if ( ! isset( $attr['loading'] ) ) {
+		$attr['loading'] = 'lazy';
+	}
+
+	return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'aurelia_lazy_load_images' );
+
+/**
+ * Add critical CSS inline for above-the-fold content
+ *
+ * @since 1.0.0
+ */
+function aurelia_critical_css() {
+	// Only output on front page for hero section
+	if ( ! is_front_page() ) {
+		return;
+	}
+
+	?>
+	<style id="aurelia-critical-css">
+		/* Critical CSS for above-the-fold hero section */
+		:root {
+			--color-background: 0 0% 100%;
+			--color-gold: 45 90% 55%;
+			--font-serif: 'Cormorant Garamond', serif;
+			--font-sans: 'Inter', sans-serif;
+		}
+
+		body {
+			margin: 0;
+			font-family: var(--font-sans);
+			color: hsl(220 15% 20%);
+		}
+
+		.aurelia-hero-section {
+			position: relative;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+
+		.aurelia-hero-section .wp-block-cover__image-background {
+			position: absolute;
+			inset: 0;
+			object-fit: cover;
+		}
+
+		.aurelia-hero-section h1 {
+			font-family: var(--font-serif);
+			font-size: clamp(3.5rem, 7vw, 4.5rem);
+			color: white;
+			margin: 0;
+		}
+	</style>
+	<?php
+}
+add_action( 'wp_head', 'aurelia_critical_css', 5 );
