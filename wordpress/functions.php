@@ -121,6 +121,7 @@ add_action( 'wp_enqueue_scripts', 'aurelia_enqueue_assets' );
  */
 require_once AURELIA_THEME_DIR . '/inc/post-types.php';
 require_once AURELIA_THEME_DIR . '/inc/template-functions.php';
+require_once AURELIA_THEME_DIR . '/inc/sample-data.php';
 
 /**
  * Block Pattern Categories
