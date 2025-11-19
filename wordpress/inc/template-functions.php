@@ -218,3 +218,41 @@ function aurelia_the_room_badge( $post_id = null ) {
 		echo '<span class="room-badge">' . esc_html( $badge ) . '</span>';
 	}
 }
+
+/**
+ * Get room features
+ *
+ * @param int $post_id The post ID.
+ * @return array Room features.
+ * @since 1.0.0
+ */
+function aurelia_get_room_features( $post_id = null ) {
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	$features = get_post_meta( $post_id, '_aurelia_room_features', true );
+	return is_array( $features ) ? $features : array();
+}
+
+/**
+ * Display room features as list
+ *
+ * @param int $post_id The post ID.
+ * @return void
+ * @since 1.0.0
+ */
+function aurelia_the_room_features( $post_id = null ) {
+	$features = aurelia_get_room_features( $post_id );
+
+	if ( ! empty( $features ) ) {
+		echo '<ul class="room-features-list">';
+		foreach ( $features as $feature ) {
+			echo '<li class="room-feature-item">';
+			echo '<svg class="feature-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+			echo '<span>' . esc_html( $feature ) . '</span>';
+			echo '</li>';
+		}
+		echo '</ul>';
+	}
+}

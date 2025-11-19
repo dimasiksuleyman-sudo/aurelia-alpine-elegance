@@ -184,6 +184,15 @@ function aurelia_add_room_meta_boxes() {
 		'normal',
 		'high'
 	);
+
+	add_meta_box(
+		'aurelia_room_features',
+		__( 'Room Features', 'aurelia-hotel' ),
+		'aurelia_room_features_callback',
+		'hotel_room',
+		'normal',
+		'default'
+	);
 }
 add_action( 'add_meta_boxes', 'aurelia_add_room_meta_boxes' );
 
@@ -297,6 +306,103 @@ function aurelia_save_room_details( $post_id ) {
 	}
 }
 add_action( 'save_post_hotel_room', 'aurelia_save_room_details' );
+
+/**
+ * Room Features Meta Box Callback
+ *
+ * @param WP_Post $post The post object.
+ * @since 1.0.0
+ */
+function aurelia_room_features_callback( $post ) {
+	// Add nonce for security.
+	wp_nonce_field( 'aurelia_save_room_features', 'aurelia_room_features_nonce' );
+
+	// Get existing features.
+	$features = get_post_meta( $post->ID, '_aurelia_room_features', true );
+	if ( ! is_array( $features ) ) {
+		$features = array( '' );
+	}
+	?>
+	<div id="aurelia-room-features-container">
+		<?php foreach ( $features as $index => $feature ) : ?>
+			<div class="aurelia-feature-row" style="margin-bottom: 10px; display: flex; gap: 10px; align-items: center;">
+				<input type="text" name="aurelia_room_features[]" value="<?php echo esc_attr( $feature ); ?>" class="regular-text" placeholder="<?php esc_attr_e( 'e.g., Private balcony with panoramic views', 'aurelia-hotel' ); ?>" />
+				<button type="button" class="button aurelia-remove-feature" <?php echo ( count( $features ) <= 1 ) ? 'style="display:none;"' : ''; ?>><?php _e( 'Remove', 'aurelia-hotel' ); ?></button>
+			</div>
+		<?php endforeach; ?>
+	</div>
+
+	<p style="margin-top: 10px;">
+		<button type="button" class="button button-secondary" id="aurelia-add-feature"><?php _e( 'Add Feature', 'aurelia-hotel' ); ?></button>
+	</p>
+
+	<script>
+	jQuery(document).ready(function($) {
+		// Add feature
+		$('#aurelia-add-feature').on('click', function() {
+			var container = $('#aurelia-room-features-container');
+			var newRow = $('<div class="aurelia-feature-row" style="margin-bottom: 10px; display: flex; gap: 10px; align-items: center;"></div>');
+			newRow.append('<input type="text" name="aurelia_room_features[]" value="" class="regular-text" placeholder="<?php esc_attr_e( 'e.g., Private balcony with panoramic views', 'aurelia-hotel' ); ?>" />');
+			newRow.append('<button type="button" class="button aurelia-remove-feature"><?php _e( 'Remove', 'aurelia-hotel' ); ?></button>');
+			container.append(newRow);
+
+			// Show all remove buttons
+			$('.aurelia-remove-feature').show();
+		});
+
+		// Remove feature
+		$(document).on('click', '.aurelia-remove-feature', function() {
+			var rows = $('.aurelia-feature-row');
+			if (rows.length > 1) {
+				$(this).closest('.aurelia-feature-row').remove();
+
+				// Hide remove button if only one row left
+				if ($('.aurelia-feature-row').length === 1) {
+					$('.aurelia-remove-feature').hide();
+				}
+			}
+		});
+	});
+	</script>
+	<?php
+}
+
+/**
+ * Save Room Features Meta Box Data
+ *
+ * @param int $post_id The post ID.
+ * @since 1.0.0
+ */
+function aurelia_save_room_features( $post_id ) {
+	// Check if nonce is set.
+	if ( ! isset( $_POST['aurelia_room_features_nonce'] ) ) {
+		return;
+	}
+
+	// Verify nonce.
+	if ( ! wp_verify_nonce( $_POST['aurelia_room_features_nonce'], 'aurelia_save_room_features' ) ) {
+		return;
+	}
+
+	// Check if autosave.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// Check user permissions.
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	// Save features.
+	if ( isset( $_POST['aurelia_room_features'] ) && is_array( $_POST['aurelia_room_features'] ) ) {
+		$features = array_filter( array_map( 'sanitize_text_field', $_POST['aurelia_room_features'] ) );
+		update_post_meta( $post_id, '_aurelia_room_features', $features );
+	} else {
+		delete_post_meta( $post_id, '_aurelia_room_features' );
+	}
+}
+add_action( 'save_post_hotel_room', 'aurelia_save_room_features' );
 
 /**
  * Flush rewrite rules on theme activation
