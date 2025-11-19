@@ -6,39 +6,64 @@
 
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.5rem"},"elements":{"link":{"color":{"text":"var:preset|color|gold"}}}},"textColor":"gold"} -->
-			<h3 class="wp-block-heading has-gold-color has-text-color has-link-color" style="font-size:1.5rem">The Aurelia</h3>
+			<!-- wp:heading {"level":3,"style":{"typography":{"fontSize":"1.875rem"},"spacing":{"margin":{"bottom":"1rem"}},"elements":{"link":{"color":{"text":"var:preset|color|gold"}}}},"textColor":"gold","fontFamily":"serif"} -->
+			<h3 class="wp-block-heading has-gold-color has-text-color has-link-color has-serif-font-family" style="margin-bottom:1rem;font-size:1.875rem">The Aurelia</h3>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.875rem"}}} -->
-			<p style="font-size:0.875rem">Where mountains meet luxury. Experience alpine elegance in the heart of Zermatt.</p>
+			<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.875rem","lineHeight":"1.6"},"spacing":{"margin":{"bottom":"1.5rem"}}}} -->
+			<p style="margin-bottom:1.5rem;font-size:0.875rem;line-height:1.6;opacity:0.8">Where mountains meet luxury. Experience alpine elegance in the heart of Zermatt.</p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:column -->
 
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:heading {"level":4,"style":{"typography":{"fontSize":"1.125rem"}}} -->
-			<h4 class="wp-block-heading" style="font-size:1.125rem">Quick Links</h4>
+			<!-- wp:heading {"level":4,"style":{"typography":{"fontSize":"1.25rem"},"spacing":{"margin":{"bottom":"1rem"}}},"fontFamily":"serif"} -->
+			<h4 class="wp-block-heading has-serif-font-family" style="margin-bottom:1rem;font-size:1.25rem">Quick Links</h4>
 			<!-- /wp:heading -->
 
-			<!-- wp:navigation {"ref":2,"orientation":"vertical","style":{"spacing":{"blockGap":"var:preset|spacing|small"}},"fontSize":"small"} /-->
+			<!-- wp:list {"style":{"spacing":{"padding":{"left":"0"}},"typography":{"fontSize":"0.875rem"}},"className":"is-style-no-bullets"} -->
+			<ul class="is-style-no-bullets" style="padding-left:0;font-size:0.875rem">
+				<!-- wp:list-item {"style":{"spacing":{"margin":{"bottom":"0.5rem"}}}} -->
+				<li style="margin-bottom:0.5rem"><a href="#rooms" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Rooms</a></li>
+				<!-- /wp:list-item -->
+
+				<!-- wp:list-item {"style":{"spacing":{"margin":{"bottom":"0.5rem"}}}} -->
+				<li style="margin-bottom:0.5rem"><a href="#experiences" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Dining</a></li>
+				<!-- /wp:list-item -->
+
+				<!-- wp:list-item {"style":{"spacing":{"margin":{"bottom":"0.5rem"}}}} -->
+				<li style="margin-bottom:0.5rem"><a href="#experiences" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Spa</a></li>
+				<!-- /wp:list-item -->
+
+				<!-- wp:list-item {"style":{"spacing":{"margin":{"bottom":"0.5rem"}}}} -->
+				<li style="margin-bottom:0.5rem"><a href="#location" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Contact</a></li>
+				<!-- /wp:list-item -->
+
+				<!-- wp:list-item -->
+				<li><a href="#careers" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">Careers</a></li>
+				<!-- /wp:list-item -->
+			</ul>
+			<!-- /wp:list -->
 		</div>
 		<!-- /wp:column -->
 
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:heading {"level":4,"style":{"typography":{"fontSize":"1.125rem"}}} -->
-			<h4 class="wp-block-heading" style="font-size:1.125rem">Contact</h4>
+			<!-- wp:heading {"level":4,"style":{"typography":{"fontSize":"1.25rem"},"spacing":{"margin":{"bottom":"1rem"}}},"fontFamily":"serif"} -->
+			<h4 class="wp-block-heading has-serif-font-family" style="margin-bottom:1rem;font-size:1.25rem">Newsletter</h4>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.875rem"}}} -->
-			<p style="font-size:0.875rem">Bergstrasse 42<br>3920 Zermatt, Switzerland</p>
+			<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.875rem"},"spacing":{"margin":{"bottom":"1rem"}}}} -->
+			<p style="margin-bottom:1rem;font-size:0.875rem;opacity:0.8">Subscribe for exclusive offers and updates</p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.875rem"}}} -->
-			<p style="font-size:0.875rem">+41 27 966 8800<br>reservations@theaurelia.ch</p>
-			<!-- /wp:paragraph -->
+			<!-- wp:html -->
+			<form class="newsletter-form">
+				<input type="email" class="newsletter-input" placeholder="Enter your email" required>
+				<button type="submit" class="newsletter-button">Subscribe</button>
+			</form>
+			<!-- /wp:html -->
 		</div>
 		<!-- /wp:column -->
 
