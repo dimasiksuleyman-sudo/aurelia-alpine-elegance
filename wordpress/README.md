@@ -159,6 +159,41 @@ aurelia_has_room_badge( $post_id );
 aurelia_the_room_badge( $post_id );
 ```
 
+## Quick Start Guide
+
+### Step 1: Create Sample Data
+
+After activating the theme, visit your site with this URL parameter to create demo hotel rooms:
+
+```
+https://yoursite.com/?aurelia_create_sample_data=1
+```
+
+This will automatically create:
+- ✅ 3 demo hotel rooms (Alpine Suite, Summit Penthouse, Garden Retreat)
+- ✅ Room categories (Suite, Penthouse, Retreat)
+- ✅ Room amenities (WiFi, Balcony, Hot Tub, Air Conditioning, etc.)
+
+### Step 2: Set Up Homepage
+
+1. Go to **Settings → Reading**
+2. Select **A static page**
+3. Choose **Front Page** for your homepage
+4. Save changes
+
+### Step 3: Insert Block Patterns
+
+1. Edit your front page
+2. Click the **+** button to add blocks
+3. Search for "Aurelia" to see all available patterns
+4. Insert patterns in this recommended order:
+   - Hero Section
+   - Welcome Section
+   - Rooms Grid
+   - Experiences
+   - Testimonials
+   - Location
+
 ## Development
 
 ### Local Development Setup
@@ -166,14 +201,133 @@ aurelia_the_room_badge( $post_id );
 1. Install WordPress locally (Local, XAMPP, etc.)
 2. Clone this theme to `wp-content/themes/`
 3. Activate the theme
-4. Add sample room data
+4. Create sample data using the URL parameter above
 
 ### Recommended Plugins
 
-- **Advanced Custom Fields (ACF) Pro** - For additional custom fields
-- **WP Hotel Booking** - For booking system integration
-- **Yoast SEO** - For SEO optimization
-- **WP Rocket** - For performance optimization
+#### Essential Plugins
+
+1. **WP Hotel Booking** (Free)
+   - **Purpose**: Full booking system integration
+   - **Features**: Calendar, availability, pricing, reservations
+   - **Install**: Via WordPress plugin directory or WP-CLI
+   - **Setup**: Configure payment gateway, booking rules, and pricing
+
+2. **Contact Form 7** (Free)
+   - **Purpose**: Contact and inquiry forms
+   - **Features**: Easy form builder, email notifications, spam protection
+   - **Install**: Via WordPress plugin directory
+   - **Setup**: Create forms and add shortcodes to pages
+
+3. **Advanced Custom Fields (ACF)** (Optional)
+   - **Purpose**: Add custom fields if needed beyond built-in meta boxes
+   - **Install**: Via WordPress plugin directory
+   - **When to use**: Only if additional custom fields are required
+
+#### Performance Plugins
+
+4. **WP Rocket** (Premium - Recommended)
+   - **Purpose**: Caching and performance optimization
+   - **Cost**: $59/year
+   - **Features**: Page caching, CSS/JS minification, lazy loading, CDN
+   - **Setup**: Enable file optimization, media optimization, and preload cache
+
+5. **Autoptimize** (Free Alternative)
+   - **Purpose**: Code optimization without caching
+   - **Features**: Minify CSS/JS/HTML, defer JavaScript
+   - **Install**: Via WordPress plugin directory
+
+#### SEO Plugins
+
+6. **Yoast SEO** (Free)
+   - **Purpose**: Search engine optimization
+   - **Features**: Meta tags, XML sitemaps, content analysis
+   - **Setup**: Run configuration wizard and connect Google Search Console
+
+#### Backup Plugins
+
+7. **UpdraftPlus** (Free)
+   - **Purpose**: Automated backups
+   - **Features**: Cloud storage integration (Google Drive, Dropbox, etc.)
+   - **Setup**: Configure daily backup schedule and test restore functionality
+
+## Testing Checklist
+
+Before deploying the theme to production, complete this checklist:
+
+### Installation & Activation
+- [ ] Theme activates without PHP errors or warnings
+- [ ] No JavaScript errors in browser console
+- [ ] Sample data creates successfully
+
+### Block Patterns
+- [ ] All 7 patterns insert correctly in the editor
+- [ ] Hero Section displays with booking widget
+- [ ] Welcome Section shows text and image properly
+- [ ] Rooms Grid displays hotel rooms in 3-column layout
+- [ ] Experiences section shows all 4 icon boxes
+- [ ] Testimonials display with 5-star ratings
+- [ ] Location section shows map placeholder and contact info
+
+### Custom Post Type
+- [ ] Can create new hotel rooms without errors
+- [ ] All meta boxes (price, size, bed type, etc.) save correctly
+- [ ] Featured images display on room cards and single pages
+- [ ] Room categories and amenities assign properly
+- [ ] Rooms display in grid pattern correctly
+
+### Templates
+- [ ] Front page template shows all sections in order
+- [ ] Single hotel room page displays all room details
+- [ ] Standard pages use correct page template
+- [ ] Header appears with site title and navigation
+- [ ] Footer shows with 3 columns and newsletter form
+
+### Booking Widget
+- [ ] Date picker opens when clicking on date inputs
+- [ ] Check-in date validation (no past dates allowed)
+- [ ] Check-out date must be after check-in date
+- [ ] Guest selector dropdown works
+- [ ] Error messages display for invalid input
+- [ ] Success notification shows on form submission
+- [ ] Sticky behavior activates when scrolling past hero
+
+### Responsive Design
+- [ ] **Mobile (< 768px)**: All sections stack properly
+- [ ] **Tablet (768px - 1024px)**: 2-column layouts work
+- [ ] **Desktop (> 1024px)**: 3-column grids display
+- [ ] Images scale appropriately on all screen sizes
+- [ ] Navigation menu becomes hamburger on mobile
+- [ ] Booking widget adjusts for mobile screens
+
+### Performance
+- [ ] Google PageSpeed score 85+ on mobile
+- [ ] Google PageSpeed score 90+ on desktop
+- [ ] Largest Contentful Paint (LCP) < 2.5s
+- [ ] First Input Delay (FID) < 100ms
+- [ ] Cumulative Layout Shift (CLS) < 0.1
+- [ ] Images are lazy-loaded (except above-fold)
+- [ ] CSS and JavaScript files load without 404 errors
+
+### Cross-Browser Compatibility
+- [ ] Chrome/Edge (latest version)
+- [ ] Firefox (latest version)
+- [ ] Safari (latest version)
+- [ ] Mobile Safari (iOS latest)
+
+### Accessibility
+- [ ] Keyboard navigation works (Tab, Enter, Esc)
+- [ ] ARIA labels present on interactive elements
+- [ ] Color contrast meets WCAG 2.1 AA standards
+- [ ] Heading hierarchy is logical (H1 → H2 → H3)
+- [ ] Images have alt text
+
+### SEO
+- [ ] Page titles display correctly
+- [ ] Meta descriptions are set
+- [ ] Proper heading hierarchy (one H1 per page)
+- [ ] Structured data for hotel/room markup (if needed)
+- [ ] XML sitemap includes hotel rooms
 
 ## Support
 
