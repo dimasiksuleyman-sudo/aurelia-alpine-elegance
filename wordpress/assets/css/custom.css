@@ -1,0 +1,141 @@
+/**
+ * Custom Styles for Aurelia Hotel Theme
+ *
+ * @package Aurelia_Hotel
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   Room Cards Component
+   ========================================================================== */
+
+.room-card {
+	transition: transform var(--wp--custom--transition--base),
+	            box-shadow var(--wp--custom--transition--base);
+	overflow: hidden;
+}
+
+.room-card:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--wp--custom--shadow--large);
+}
+
+.room-card img {
+	transition: transform var(--wp--custom--transition--slow);
+}
+
+.room-card:hover img {
+	transform: scale(1.05);
+}
+
+.room-badge {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	background-color: var(--wp--preset--color--gold);
+	color: var(--wp--preset--color--charcoal);
+	padding: 0.5rem 1rem;
+	border-radius: var(--wp--custom--border-radius--large);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	z-index: 10;
+}
+
+/* ==========================================================================
+   Testimonial Cards Component
+   ========================================================================== */
+
+.testimonial-card {
+	transition: box-shadow var(--wp--custom--transition--base);
+}
+
+.testimonial-card:hover {
+	box-shadow: var(--wp--custom--shadow--medium);
+}
+
+/* ==========================================================================
+   Hero Booking Widget
+   ========================================================================== */
+
+.hero-booking-widget {
+	border-radius: var(--wp--custom--border-radius--medium);
+	box-shadow: var(--wp--custom--shadow--large);
+	backdrop-filter: blur(10px);
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+.room-amenities {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 0.5rem;
+}
+
+.room-amenity {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.875rem;
+}
+
+.amenity-icon {
+	color: var(--wp--preset--color--gold);
+	font-weight: 600;
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.hero-booking-widget {
+		margin-left: 1rem;
+		margin-right: 1rem;
+	}
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fade-in-up {
+	animation: fadeInUp 0.6s ease-out;
+}
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+
+.skip-link {
+	position: absolute;
+	top: -40px;
+	left: 0;
+	background-color: var(--wp--preset--color--gold);
+	color: var(--wp--preset--color--charcoal);
+	padding: 0.5rem 1rem;
+	text-decoration: none;
+	font-weight: 600;
+	z-index: 100;
+}
+
+.skip-link:focus {
+	top: 0;
+}

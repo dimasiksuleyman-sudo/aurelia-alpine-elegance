@@ -1,0 +1,246 @@
+/*
+Theme Name: Aurelia Hotel
+Theme URI: https://theaurelia.com
+Author: Aurelia Development Team
+Author URI: https://theaurelia.com
+Description: A modern WordPress Block Theme for luxury hotel websites featuring Full Site Editing, custom blocks, and elegant design. Built for The Aurelia Alpine Hotel with earth-tone color palette and sophisticated typography.
+Requires at least: 6.4
+Tested up to: 6.4
+Requires PHP: 7.4
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: aurelia-hotel
+Tags: block-theme, full-site-editing, custom-blocks, hotel, luxury, responsive, accessibility-ready
+
+Aurelia Hotel WordPress Theme, Copyright 2024
+Aurelia Hotel is distributed under the terms of the GNU GPL.
+*/
+
+/**
+ * Table of Contents:
+ * 1. Design Tokens (CSS Custom Properties)
+ * 2. Base Styles
+ * 3. Typography
+ * 4. Utilities
+ * 5. Components
+ */
+
+/* ==========================================================================
+   1. Design Tokens (CSS Custom Properties)
+   ========================================================================== */
+
+:root {
+	/* Color Palette - Luxury Earth Tones */
+	--wp--preset--color--beige: #F5F1E8;
+	--wp--preset--color--taupe: #C4B5A0;
+	--wp--preset--color--charcoal: #2D2D2D;
+	--wp--preset--color--gold: #D4AF37;
+	--wp--preset--color--white: #FFFFFF;
+	--wp--preset--color--soft-gray: #F8F8F8;
+
+	/* Typography */
+	--wp--preset--font-family--serif: 'Cormorant Garamond', serif;
+	--wp--preset--font-family--sans: 'Inter', sans-serif;
+
+	/* Spacing Scale */
+	--wp--custom--spacing--small: 1rem;
+	--wp--custom--spacing--medium: 2rem;
+	--wp--custom--spacing--large: 4rem;
+	--wp--custom--spacing--x-large: 6rem;
+
+	/* Border Radius */
+	--wp--custom--border-radius--small: 0.25rem;
+	--wp--custom--border-radius--medium: 0.5rem;
+	--wp--custom--border-radius--large: 1rem;
+
+	/* Shadows */
+	--wp--custom--shadow--small: 0 2px 4px rgba(0, 0, 0, 0.1);
+	--wp--custom--shadow--medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+	--wp--custom--shadow--large: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+	/* Transitions */
+	--wp--custom--transition--fast: 0.15s ease;
+	--wp--custom--transition--base: 0.3s ease;
+	--wp--custom--transition--slow: 0.5s ease;
+}
+
+/* ==========================================================================
+   2. Base Styles
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 1rem;
+	line-height: 1.6;
+	color: var(--wp--preset--color--charcoal);
+	background-color: var(--wp--preset--color--white);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   3. Typography
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--wp--preset--font-family--serif);
+	font-weight: 600;
+	line-height: 1.2;
+	margin-top: 0;
+	color: var(--wp--preset--color--charcoal);
+}
+
+h1 {
+	font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+h2 {
+	font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+	font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: 1.5rem;
+}
+
+a {
+	color: var(--wp--preset--color--gold);
+	text-decoration: none;
+	transition: color var(--wp--custom--transition--base);
+}
+
+a:hover {
+	color: var(--wp--preset--color--charcoal);
+}
+
+/* ==========================================================================
+   4. Utilities
+   ========================================================================== */
+
+.container {
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--wp--custom--spacing--small);
+	padding-right: var(--wp--custom--spacing--small);
+}
+
+.section-padding {
+	padding-top: var(--wp--custom--spacing--large);
+	padding-bottom: var(--wp--custom--spacing--large);
+}
+
+@media (min-width: 768px) {
+	.section-padding {
+		padding-top: var(--wp--custom--spacing--x-large);
+		padding-bottom: var(--wp--custom--spacing--x-large);
+	}
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-gold {
+	color: var(--wp--preset--color--gold);
+}
+
+/* Screen Reader Text */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+/* ==========================================================================
+   5. Components
+   ========================================================================== */
+
+/* Buttons */
+.wp-block-button__link {
+	background-color: var(--wp--preset--color--gold);
+	color: var(--wp--preset--color--charcoal);
+	padding: 0.75rem 2rem;
+	border-radius: var(--wp--custom--border-radius--small);
+	font-weight: 500;
+	transition: all var(--wp--custom--transition--base);
+	border: none;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--gold);
+	transform: translateY(-2px);
+	box-shadow: var(--wp--custom--shadow--medium);
+}
+
+/* Images */
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.wp-block-image img {
+	border-radius: var(--wp--custom--border-radius--medium);
+}
+
+/* Cover Blocks */
+.wp-block-cover {
+	min-height: 60vh;
+}
+
+/* Group Blocks */
+.wp-block-group {
+	margin-bottom: var(--wp--custom--spacing--medium);
+}
+
+/* Accessibility */
+*:focus-visible {
+	outline: 2px solid var(--wp--preset--color--gold);
+	outline-offset: 2px;
+}
+
+/* Smooth Scrolling */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
